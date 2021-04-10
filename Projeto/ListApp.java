@@ -40,6 +40,9 @@ class ListFrame extends JFrame {
                     } else if (evt.getKeyChar() == 'e') {
                         figs.add(new Ellipse(x,y, w,h));
                     }
+                     } else if (evt.getKeyChar() == 'e') {
+                        figs.add(new Triangulo(x,y, w));
+                    }
                     repaint();
                 }
             }
