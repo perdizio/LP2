@@ -47,6 +47,29 @@ class ListFrame extends JFrame {
                 }
             }
         );
+        
+        
+        this.addMouseListener(new MouseListener() {
+  public void mouseClicked(MouseEvent arg0) {
+  
+                    int x = rand.nextInt(350);
+                    int y = rand.nextInt(350);
+                    int w = rand.nextInt(50);
+                    int h = rand.nextInt(50);
+                    
+                        Rect r = new Rect(x,y, w,h);
+                        figs.add(r);
+                   
+                        figs.add(new Ellipse(x,y, w,h));
+              
+                        figs.add(new Triangulo(x,y, w));
+                   
+                    repaint();
+  
+  
+  
+  }
+        });
 
         this.setTitle("Lista de Figuras");
         this.setSize(350, 350);
