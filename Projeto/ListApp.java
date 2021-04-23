@@ -106,13 +106,6 @@ class PackFrame extends JFrame {
 						figs.add(new Rect(p.x,p.y,w,h,Color.black,Color.pink )); 
 						
 						
-					
-					
-					}else if(evt.getKeyChar() == 'l'){
-					
-						figs.add(new Line(0,0,w,h,Color.black,Color.pink )); 
-						
-						
 						
                     			}else if(evt.getKeyChar() == 't'){
 					
