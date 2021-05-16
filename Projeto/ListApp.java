@@ -126,26 +126,24 @@ class PackFrame extends JFrame {
 					 /*----------------------------------
 						TAMANHO DAS FIGURAS
 					  -----------------------------------*/
-					 
-					 else if(evt.getKeyChar() == '-'){
-						for(Figure fig: figs){
-                            				if(focus == fig){
-								fig.w=fig.w-1;
-								fig.h=fig.w-1;
-						   	}
-						 }
-						                      // repaint();
-					}else if(evt.getKeyChar() == '+'){
+			
+			
 					
+					
+					else if (evt.getKeyChar() == '+') {
 						for(Figure fig: figs){
-                            				if(focus == fig){
-								fig.w=fig.w+1;
-								fig.h=fig.h+1;
-						   }}
-						                  //  repaint();
-
-						
-                   			 }
+                            				if(focus == fig){						
+								focus.tamanho(1,1);
+							}
+						}
+			   		 }
+			    		else if (evt.getKeyChar() == '-') {
+						for(Figure fig: figs){
+                            				if(focus == fig){	
+								focus.tamanho(-1,-1);
+							}
+							}
+						}
 			/*------------------------------------------------------------------------------
 			                         TROCA DE CORES
 			  ------------------------------------------------------------------------------*/
