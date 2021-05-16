@@ -23,7 +23,11 @@ public abstract class Figure {
         this.x += dx;
         this.y += dy;
     }
+    public void tamanho(int dx,int dy){
+	this.w+=dx;
+	this.h+=dy;
 
+	}
     public abstract void paint (Graphics g);
     public abstract boolean contains(MouseEvent evt);
 		public abstract void colorFig(Color b);
