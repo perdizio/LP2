@@ -14,6 +14,8 @@ public class ListApp{
 }
 class PackFrame extends JFrame {
     ArrayList<Figure> figs = new ArrayList<Figure>();
+    ArrayList<Button> botao = new ArrayList<Button>();
+
     Point p;
     Random rand = new Random();
     Figure focus = null;
@@ -69,7 +71,10 @@ class PackFrame extends JFrame {
                 }
             }
             );
-
+	   botao.add(new Button(1, new Ellipse(10, 20, 10, 10, Color.black, Color.black)));
+	   botao.add(new Button(2, new Rect(50,20, 10,50, Color.black, Color.black)));
+	   botao.add(new Button(3, new Triagunlo(20, 100, 25, Color.black, Color.black)));
+	   botao.add(new Button(4, new Pentagono(20, 115, 25, 25, Color.black, Color.black)));
             this.addMouseMotionListener (
                 new MouseMotionAdapter() {
                     public void mouseDragged (MouseEvent evt) {
