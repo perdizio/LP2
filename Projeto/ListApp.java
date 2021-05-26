@@ -5,6 +5,11 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Random;
 import figures.*;
+import button.Button;
+import ivisible.IVisible;
+import java.io.*;
+
+
 public class ListApp{
     public static void main(String[] args) {
         PackFrame frame=new PackFrame();
@@ -14,75 +19,145 @@ public class ListApp{
 }
 class PackFrame extends JFrame {
     ArrayList<Figure> figs = new ArrayList<Figure>();
-    ArrayList<Button> botao = new ArrayList<Button>();
+    ArrayList<Button> buttons= new ArrayList<Button>();
 
     Point p;
-    Random rand = new Random();
     Figure focus = null;
+    Button focusB=null;
+
+
 //Point p = getMousePosition();
 
     Color a = null;
 	Color aux= null;
-	  int w = 40;
+	  int w = 30;
       int h = 30;
     PackFrame () {
+		
+		
+		try{
+			FileInputStream f = new FileInputStream("proj.bin");
+			ObjectInputStream o = new ObjectInputStream(f);
+			this.figs = (ArrayList<Figure>) o.readObject();
+			o.close();
+			}catch(Exception x){
+			System.out.println("ERRO!\n");
+			}
+		     
+// direita aumenta         DESCE
+//40,                        80         ,27,17,		
+
+		//D
+		    buttons.add(new Button(1, new Ellipse(50,80,27,17, Color.black, Color.black)));
+			buttons.add(new Button(2, new Rect(30,110,20,15, Color.black, Color.black)));
+			buttons.add(new Button(3, new Triangulo(50, 160, 25, 27, Color.black, Color.black)));
+			buttons.add(new Button(4, new Pentagono(50, 190, 100, 200, Color.black, Color.black)));
+
+		
         this.addWindowListener (
             new WindowAdapter() {
                 public void windowClosing (WindowEvent e) {
+					try{
+					FileOutputStream f = new FileOutputStream("proj.bin");
+					ObjectOutputStream o = new ObjectOutputStream(f);
+					o.writeObject(figs);
+					o.flush();
+					o.close();
+				}catch(Exception x){
+					System.out.println("ERRO!\n");
+				}
+					
+					
                     System.exit(0);
                 }
             }
         );
+		   
        
             this.addMouseListener (
             new MouseAdapter() {
                  public void mousePressed (MouseEvent evt) {
+				//  Point mousePressedPos=  evt.getPoint();
+
 					 
                     p = getMousePosition();
+					 if(focusB != null ){
+							if(focusB.idx==1)
+								figs.add(new Ellipse(p.x,p.y,w,h,Color.black,Color.pink));      
+							else if(focusB.idx==2)
+							{
+								
+							figs.add(new Rect(p.x,p.y,w,h,Color.black,Color.pink ));      
+
+							}
+							else if(focusB.idx==3)
+							{
+							    figs.add(new Triangulo(p.x,p.y,w,h,Color.black,Color.pink )); 
+							}
+							else if(focusB.idx==4)
+							{
+							figs.add(new Pentagono(p.x,p.y,w,h,Color.black,Color.pink ));
+							}
+							
+							
+						focusB = null;
+                        repaint();
+						return;
+						}
+						
+					
+					    for (Button but: buttons) {
+                        but.focused = false;
+						if (but.contains(evt)) {
+                            but.focused = true;
+                            focusB = but;
+                        }
+                    }
 					
 			 if (focus != null) {
                         focus.corBorda = a;
-                         }
+                    }
 					
-                      //  focus.corBorda = a;
-		         focus=null;
-			for (Figure fig: figs) {
-                        	if (fig.contains(evt)) {
-                          		focus = fig;
-                            		a = focus.corBorda;
+					 focus=null;
+					for (Figure fig: figs) {
+                        if (fig.contains(evt)) {
+                          focus = fig;
+                            a = focus.corBorda;
 						
                         }
 
-                    		}
-					
+                    }
 					
 					
                     if (focus != null) {
                      focus.corBorda=a;
-		     	if(focus.corBorda != Color.red){
+					if(focus.corBorda != Color.red){
                             focus.corBorda = Color.red;
                         }
-			//focus=null;
-			figs.remove(focus);
+						//focus=null;
+						 figs.remove(focus);
                         figs.add(focus);
 						
                     }
-		    repaint();
+					
+					
+                 
+                    
+					repaint();
                 }
             }
             );
-	   botao.add(new Button(1, new Ellipse(10, 20, 10, 10, Color.black, Color.black)));
-	   botao.add(new Button(2, new Rect(50,20, 10,50, Color.black, Color.black)));
-	   botao.add(new Button(3, new Triagunlo(20, 100, 25, Color.black, Color.black)));
-	   botao.add(new Button(4, new Pentagono(20, 115, 25, 25, Color.black, Color.black)));
+			
+			
+			
             this.addMouseMotionListener (
                 new MouseMotionAdapter() {
                     public void mouseDragged (MouseEvent evt) {
 					  // p = getMousePosition();
-		    	Point mousePressedPos=  evt.getPoint();
-                      	focus.drag(evt.getX() - p.x, evt.getY() - p.y, mousePressedPos);
-                      	p = getMousePosition();
-                      	repaint();
+					  Point mousePressedPos=  evt.getPoint();
+                      focus.drag(evt.getX() - p.x, evt.getY() - p.y, mousePressedPos);
+                      p = getMousePosition();
+                      repaint();
                         
                     }
                 }
@@ -106,20 +181,22 @@ class PackFrame extends JFrame {
 						
 						
     
-                    			}else if(evt.getKeyChar() == 'r'){
+                    }else if(evt.getKeyChar() == 'r'){
 					
 						figs.add(new Rect(p.x,p.y,w,h,Color.black,Color.pink )); 
 						
 						
-						
-                    			}else if(evt.getKeyChar() == 't'){
+					
+					
+					}else if(evt.getKeyChar() == 't'){
 					
 						figs.add(new Triangulo(p.x,p.y,w,h,Color.black,Color.pink )); 
 						
 						
 						
                     
-					 } else if(evt.getKeyChar() == 'p'){
+					 }
+					 else if(evt.getKeyChar() == 'p'){
 					
 						figs.add(new Pentagono(p.x,p.y,w,h,Color.black,Color.pink )); 
 						
@@ -128,24 +205,20 @@ class PackFrame extends JFrame {
                     
 					 }
 					 
-					 /*----------------------------------
-						TAMANHO DAS FIGURAS
-					  -----------------------------------*/
 			
-			
-					
 					
 					else if (evt.getKeyChar() == '+') {
 						for(Figure fig: figs){
-                            				if(focus == fig){						
-								focus.tamanho(1,1);
+                            if(focus == fig){						//aumenta o tamanho da figura selecionada
+						focus.tamanho(1,1);
 							}
 						}
 			   		 }
 			    		else if (evt.getKeyChar() == '-') {
-						for(Figure fig: figs){
-                            				if(focus == fig){	
-								focus.tamanho(-1,-1);
+							for(Figure fig: figs){
+                            if(focus == fig){	
+							//diminui o tamanho da figura selecionada
+						focus.tamanho(-1,-1);
 							}
 							}
 						}
@@ -169,50 +242,49 @@ class PackFrame extends JFrame {
 			     ------------------------------------------------------------------------------*/
 								
 					}else if(evt.getKeyCode() == 40){
-                      			//Point p = getMousePosition();
+                      //Point p = getMousePosition();
 
 					  	 for(Figure fig: figs){
-                            				if(focus == fig){
-					        	 focus.drag(0,1,p);
+                            if(focus == fig){
+					         focus.drag(0,1,p);
 		
-							}
-						}
 					}
+					}}
 					/*----------------------------
 					            CIMA
-				          ---------------------------*/
+				      ---------------------------*/
 					else if(evt.getKeyCode() == 38){
-                      		       //Point p = getMousePosition();
+                      //Point p = getMousePosition();
 
 					  	 for(Figure fig: figs){
-                            				if(focus == fig){
+                            if(focus == fig){
 								focus.drag(0 , -1,p);
-					 			 //focus.drag(0 , -1,p);
-                   						 repaint();
-									}
-						}
+					  //focus.drag(0 , -1,p);
+                    repaint();
+
+								
 					}
+					}}
 					
 					/*----------------------------
 					            DIREITA
-				      	---------------------------*/
+				      ---------------------------*/
 					else if(evt.getKeyCode() == 39){
-                      			//Point p = getMousePosition();
+                      //Point p = getMousePosition();
 
 					  	 for(Figure fig: figs){
-                            				if(focus == fig){
-					  			focus.drag(1,0,p);
-                    						repaint();
+                            if(focus == fig){
+					  focus.drag(1,0,p);
+                    repaint();
 
 								
-								}
-						}
 					}
+					}}
 				/*----------------------------
 					        ESQUERDA
 				  ---------------------------*/
 				else if(evt.getKeyCode() == 37){
-                      		//Point p = getMousePosition();
+                      //Point p = getMousePosition();
 
 					for(Figure fig: figs){
 						if(focus == fig){
@@ -229,8 +301,8 @@ class PackFrame extends JFrame {
 				  ------------------------------------------------------------*/
 				
 				else if(evt.getKeyCode() == KeyEvent.VK_DELETE && focus!=null){
-                            		figs.remove(focus);
-                            		focus=null;
+                            figs.remove(focus);
+                            focus=null;
                     }
 					
 					/*---------------------
@@ -239,9 +311,9 @@ class PackFrame extends JFrame {
 					else if(evt.getKeyCode() == KeyEvent.VK_TAB ){
 						
 						 for(Figure fig: figs){
-                           				 if(focus != fig){
+                            if(focus != fig){
                                
-							   	focus.corBorda = a;
+							   focus.corBorda = a;
 
 
 						 
@@ -264,11 +336,18 @@ class PackFrame extends JFrame {
         this.setSize(350, 350);
     }
 
-    public void paint (Graphics g) {
+   public void paint (Graphics g) {
         super.paint(g);
+      
         for (Figure fig: this.figs) {
-            fig.paint(g);
+            fig.paint(g, fig.focused);
         }
+		
+		   for (Button but: this.buttons) {
+            but.paint(g,but.focused);
+        }
+		
+       
     }
 }
 
