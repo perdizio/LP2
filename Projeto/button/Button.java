@@ -14,7 +14,7 @@ public class Button implements IVisible {
 	
     public Button (int idx, Figure fig) {
     
-	      this.idx = idx;
+	this.idx = idx;
         this.fig = fig;
         this.focused=false;
         this.x = (-20 +(aux*idx))/2;
@@ -31,8 +31,8 @@ public class Button implements IVisible {
         g2d.setColor(focused ? Color.GRAY : Color.LIGHT_GRAY);
         g2d.fillRect (this.x,this.y, aux, aux);
         g2d.setColor(Color.BLACK);
-		    g2d.drawRect(this.x,this.y, aux,aux);
-		    this.fig.paint(g, false);
+        g2d.drawRect(this.x,this.y, aux,aux);
+        this.fig.paint(g, false);
 
 
     }
