@@ -20,16 +20,16 @@ public class Pentagono  extends Figure{
         this.h = h;
         this.corBorda = corBorda;
 		this.cb=cb;
-		
-		int x1[]= {this.x,(this.x+25),(this.x + 75),(this.x + 100),(this.x + 50)};
-		int x2[]={this.y,(this.y+50),(this.y+50),this.y,(this.y-50)};
-		
+		                                //n            //n
+		int x1[]= {this.x,(this.x+10),(this.x +25),(this.x + 40),(this.x + 20)};
+		//int x1[]= {this.x,(this.x+15),(this.x + 30),(this.x + 50),(this.x + 30)};
+
+		int x2[]={this.y,(this.y+25),(this.y+25),this.y,(this.y-40)};
+			//	int x2[]={this.y,(this.y+25),(this.y+25),this.y,(this.y-40)};
+
+
 		this.p=new Polygon(x1, x2, 5);
 		
-  
-
-		
-
     }
 	
 	
@@ -44,18 +44,17 @@ public class Pentagono  extends Figure{
 		}
 	 public void paint (Graphics g, boolean focused) {
 		Graphics2D g2d = (Graphics2D) g;
-		if(focused){
-	   		g2d.setColor(this.corBorda);
-        		g2d.draw(this.p);
-           		g2d.fillPolygon(p);
+				if(focused){
+			   g2d.setColor(this.corBorda);
+        g2d.draw(this.p);
+           //g2d.setPaint(Color.RED);
+            g2d.fillPolygon(p);
 				}
-        	g2d.setColor(this.corBorda);
-        	g2d.draw(this.p);
-        	g2d.setColor(this.cb);
-        	g2d.fillPolygon(this.p);
+        g2d.setColor(this.corBorda);
+        g2d.draw(this.p);
+        g2d.setColor(this.cb);
+        g2d.fillPolygon(this.p);
     }
-	
-	
 	
 	
 	public boolean contains(MouseEvent evt) {
@@ -69,8 +68,9 @@ public class Pentagono  extends Figure{
 	  public void drag(int x,int y, Point pos){
         this.x += x;
         this.y += y;
-      int x1[]= {this.x,(this.x+25),(this.x + 75),(this.x + 100),(this.x + 50)};
-		int x2[]={this.y,(this.y+50),(this.y+50),this.y,(this.y-50)};
+      	
+		int x1[]= {this.x,(this.x+15),(this.x + 55),(this.x + 78),(this.x + 40)};
+		int x2[]={this.y,(this.y+40),(this.y+40),this.y,(this.y-40)};
               this.p = new Polygon(x1, x2, 5);
     }
 }
