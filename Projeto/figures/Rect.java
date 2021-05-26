@@ -24,15 +24,21 @@ public class Rect extends Figure {
             this.w, this.h, this.x, this.y);
     }
 
-    public void paint (Graphics g) {
-       Graphics2D g2d = (Graphics2D) g;
+   public void paint (Graphics g, boolean focused) {
+        Graphics2D g2d = (Graphics2D) g;
+        if(focused){
+			   g2d.setColor(this.corBorda);
+        g2d.draw(this.r);
+           //g2d.setPaint(Color.RED);
+        g2d.fillRect(this.x,this.y, this.w,this.h);
+				}
         g2d.setColor(this.corBorda);
         g2d.draw(this.r);
         g2d.setColor(this.cb);
         g2d.fillRect(this.x,this.y, this.w,this.h);
-    }
-	
-	
+	}
+
+
 	 public boolean contains(MouseEvent evt) {
         if (this.r.contains(evt.getPoint()))
             return true;
@@ -51,5 +57,7 @@ public class Rect extends Figure {
         this.y+=y;
         this.r = new Rectangle(this.x,this.y, this.w,this.h);
     }
+	
+	
 }
 
