@@ -45,12 +45,16 @@ public class Pentagono  extends Figure{
 	 public void paint (Graphics g, boolean focused) {
 		Graphics2D g2d = (Graphics2D) g;
 		if(focused){
-          		g2d.setPaint(Color.RED);
-            		g2d.fillPolygon(p);
-			    }
-          	g2d.setPaint(Color.BLACK);
-        	g2d.fillPolygon(p);
-    	}
+	   		g2d.setColor(this.corBorda);
+        		g2d.draw(this.p);
+           		g2d.fillPolygon(p);
+				}
+        	g2d.setColor(this.corBorda);
+        	g2d.draw(this.p);
+        	g2d.setColor(this.cb);
+        	g2d.fillPolygon(this.p);
+    }
+	
 	
 	
 	
