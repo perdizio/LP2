@@ -33,18 +33,19 @@ public class Triangulo  extends Figure{
 			
 			
 		}
-	public void paint (Graphics g) {
+	public void paint (Graphics g, boolean focused) {
 		Graphics2D g2d = (Graphics2D) g;
-		/*int[] x1= {this.x,((this.w)/2) + (this.x),(this.w) + (this.x)};
-		int[] x2={this.y, (this.y) - (this.h),this.y};
-		*/
-       
+			if(focused){
+			   g2d.setColor(this.corBorda);
+        g2d.draw(this.p);
+           //g2d.setPaint(Color.RED);
+            g2d.fillPolygon(p);
+				}
         g2d.setColor(this.corBorda);
         g2d.draw(this.p);
         g2d.setColor(this.cb);
         g2d.fillPolygon(this.p);
-    }
-	
+	}
 	public boolean contains(MouseEvent evt) {
         if (this.p.contains(evt.getPoint()))
             return true;
