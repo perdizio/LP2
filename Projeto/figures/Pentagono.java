@@ -19,13 +19,13 @@ public class Pentagono  extends Figure{
         this.w = w;
         this.h = h;
         this.corBorda = corBorda;
-		this.cb=cb;
-		                                //n            //n
-		int x1[]= {this.x,(this.x+10),(this.x +25),(this.x + 40),(this.x + 20)};
-		//int x1[]= {this.x,(this.x+15),(this.x + 30),(this.x + 50),(this.x + 30)};
-
-		int x2[]={this.y,(this.y+25),(this.y+25),this.y,(this.y-40)};
-			//	int x2[]={this.y,(this.y+25),(this.y+25),this.y,(this.y-40)};
+		this.cb=cb; 
+		          //PT.LAT.DIRE        //base             //n                    //Pt. Lat. Esq              lateral intiera
+		int x1[]= {this.x,          (this.x+5),          (this.x +25),               (this.x + 30),               (this.x + 15)};
+		//int x1[]= {this.x,          (this.x+5),          (this.x +25),               (this.x + 30),               (this.x + 15)};
+                         //parte B     
+		int x2[]={this.y,(this.y+15),(this.y+15),this.y,(this.y-25)};
+		//int x2[]={this.y,(this.y+15),(this.y+15),this.y,(this.y-25)};
 
 
 		this.p=new Polygon(x1, x2, 5);
@@ -69,8 +69,8 @@ public class Pentagono  extends Figure{
         this.x += x;
         this.y += y;
       	
-		int x1[]= {this.x,(this.x+15),(this.x + 55),(this.x + 78),(this.x + 40)};
-		int x2[]={this.y,(this.y+40),(this.y+40),this.y,(this.y-40)};
+		int x1[]= {this.x,(this.x+5),(this.x +25), (this.x + 30), (this.x + 15)};
+		int x2[]={this.y,(this.y+15),(this.y+15),this.y,(this.y-25)};
               this.p = new Polygon(x1, x2, 5);
     }
 }
