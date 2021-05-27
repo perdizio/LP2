@@ -1,8 +1,7 @@
 package ivisible;
 import java.awt.Graphics;
 import java.awt.event.*;
-public interface Ivisible{
-    public boolean clicked(MouseEvent evt);
-    public void    paint   (Graphics g);
-
+public interface IVisible{
+    public boolean contains(MouseEvent evt);
+    public void paint(Graphics g,boolean focused);
 }
