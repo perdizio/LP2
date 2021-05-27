@@ -22,25 +22,33 @@ import java.awt.event.*;
         this.h = h;
 		this.corBorda=corBorda;
 		this.cb=cb;
-      this.e = new Ellipse2D.Double(this.x, this.y, this.w, this.h);
+        this.e = new Ellipse2D.Double(this.x, this.y, this.w, this.h);
 
     }
+	  
+
 	public void colorFig(Color cb){
-			this.cb=cb;
+		this.cb=cb;
 		
+	}
+	
+	
+	
+	 public void paint (Graphics g, boolean focused) {
+        Graphics2D g2d = (Graphics2D) g;
+		
+		if(focused){
+		g2d.setColor(this.corBorda);
+        g2d.draw(this.e);
+        g2d.fill(new Ellipse2D.Double(this.x,this.y, this.w,this.h));
 		}
-	
-	
-	
-	 public void paint (Graphics g) {
-       Graphics2D g2d = (Graphics2D) g;
+		
         g2d.setColor(this.corBorda);
         g2d.draw(this.e);
         g2d.setColor(this.cb);
         g2d.fill(new Ellipse2D.Double(this.x,this.y, this.w,this.h));
-	 }
-		
-	
+	}
+
 
 	
 	 public boolean contains(MouseEvent evt) {
