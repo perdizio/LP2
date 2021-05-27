@@ -44,14 +44,14 @@ class PackFrame extends JFrame {
 			System.out.println("ERRO!\n");
 			}
 		     
-// direita aumenta         DESCE
+// direita aumenta         DESCE aumenta
 //40,                        80         ,27,17,		
 
 		//D
-		    buttons.add(new Button(1, new Ellipse(50,80,27,17, Color.black, Color.black)));
+		    buttons.add(new Button(1, new Ellipse(15,70,27,17, Color.black, Color.black)));
 			buttons.add(new Button(2, new Rect(30,110,20,15, Color.black, Color.black)));
 			buttons.add(new Button(3, new Triangulo(50, 160, 25, 27, Color.black, Color.black)));
-			buttons.add(new Button(4, new Pentagono(50, 190, 100, 200, Color.black, Color.black)));
+			buttons.add(new Button(4, new Pentagono(65, 190, 0,0, Color.black, Color.black)));
 
 		
         this.addWindowListener (
@@ -77,17 +77,14 @@ class PackFrame extends JFrame {
             this.addMouseListener (
             new MouseAdapter() {
                  public void mousePressed (MouseEvent evt) {
-				//  Point mousePressedPos=  evt.getPoint();
-
-					 
                     p = getMousePosition();
 					 if(focusB != null ){
 							if(focusB.idx==1)
-								figs.add(new Ellipse(p.x,p.y,w,h,Color.black,Color.pink));      
+								figs.add(new Ellipse(p.x,p.y,27,17,Color.black,Color.pink));      
 							else if(focusB.idx==2)
 							{
 								
-							figs.add(new Rect(p.x,p.y,w,h,Color.black,Color.pink ));      
+							figs.add(new Rect(p.x,p.y,30,20,Color.black,Color.pink ));      
 
 							}
 							else if(focusB.idx==3)
@@ -98,7 +95,6 @@ class PackFrame extends JFrame {
 							{
 							figs.add(new Pentagono(p.x,p.y,w,h,Color.black,Color.pink ));
 							}
-							
 							
 						focusB = null;
                         repaint();
@@ -113,8 +109,7 @@ class PackFrame extends JFrame {
                             focusB = but;
                         }
                     }
-					
-			 if (focus != null) {
+					if (focus != null) {
                         focus.corBorda = a;
                     }
 					
@@ -134,7 +129,6 @@ class PackFrame extends JFrame {
 					if(focus.corBorda != Color.red){
                             focus.corBorda = Color.red;
                         }
-						//focus=null;
 						 figs.remove(focus);
                         figs.add(focus);
 						
@@ -153,7 +147,6 @@ class PackFrame extends JFrame {
             this.addMouseMotionListener (
                 new MouseMotionAdapter() {
                     public void mouseDragged (MouseEvent evt) {
-					  // p = getMousePosition();
 					  Point mousePressedPos=  evt.getPoint();
                       focus.drag(evt.getX() - p.x, evt.getY() - p.y, mousePressedPos);
                       p = getMousePosition();
@@ -205,23 +198,7 @@ class PackFrame extends JFrame {
                     
 					 }
 					 
-			
-					
-					else if (evt.getKeyChar() == '+') {
-						for(Figure fig: figs){
-                            if(focus == fig){						//aumenta o tamanho da figura selecionada
-						focus.tamanho(1,1);
-							}
-						}
-			   		 }
-			    		else if (evt.getKeyChar() == '-') {
-							for(Figure fig: figs){
-                            if(focus == fig){	
-							//diminui o tamanho da figura selecionada
-						focus.tamanho(-1,-1);
-							}
-							}
-						}
+			     
 			/*------------------------------------------------------------------------------
 			                         TROCA DE CORES
 			  ------------------------------------------------------------------------------*/
@@ -294,8 +271,19 @@ class PackFrame extends JFrame {
 								
 						}
 					}
-				}	
-				
+				}
+
+				else if (evt.getKeyChar() == '+'   ) { 
+					focus.tamanho(1,1);
+					
+				}
+					
+					   
+				else if (evt.getKeyChar() == '-'   ) {
+					
+							focus.tamanho(-1,-1);
+					
+				}
 				/*------------------------------------------------------------
 					                REMOVE A FIGURA
 				  ------------------------------------------------------------*/
@@ -305,24 +293,6 @@ class PackFrame extends JFrame {
                             focus=null;
                     }
 					
-					/*---------------------
-					            TAB
-					-----------------------*/
-					else if(evt.getKeyCode() == KeyEvent.VK_TAB ){
-						
-						 for(Figure fig: figs){
-                            if(focus != fig){
-                               
-							   focus.corBorda = a;
-
-
-						 
-					}}}
-					
-					
-					
-					
-					
 					
                     repaint();
                     
@@ -331,7 +301,6 @@ class PackFrame extends JFrame {
             }
         );
     
-
         this.setTitle("ListAPP");
         this.setSize(350, 350);
     }
