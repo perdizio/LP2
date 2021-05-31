@@ -10,7 +10,7 @@ public class Triangulo  extends Figure{
 	 Polygon p ;
 	 Color a;
 	 Color b;
-       public int[] x1, x2;
+       protected int[] x1, x2;
 
 	public Triangulo (int x, int y, int w, int h,Color corBorda, Color cb){
         super(x, y,w,h,corBorda,cb);	
@@ -33,6 +33,12 @@ public class Triangulo  extends Figure{
 			
 			
 		}
+		public void colorBorda(Color corBorda){
+			this.corBorda=corBorda;
+			
+			
+		}
+	
 	public void paint (Graphics g, boolean focused) {
 		Graphics2D g2d = (Graphics2D) g;
 			if(focused){
