@@ -52,6 +52,12 @@ public class Rect extends Figure {
 			
 			
 		}
+		
+		public void colorBorda(Color corBorda){
+			this.corBorda=corBorda;
+			
+			
+		}
 	
 	
 	public void drag(int x,int y, Point p){
