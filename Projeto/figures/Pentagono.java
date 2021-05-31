@@ -8,8 +8,8 @@ import java.awt.geom.*;
 public class Pentagono  extends Figure{
 	 int x, y;
 	 int w, h;
-	Polygon p ;
-    public int[] x1, x2;
+	protected Polygon p ;
+    private int[] x1, x2;
 	 
 	public  Pentagono (int x, int y, int w, int h,Color corBorda, Color cb){
         super(x, y,w,h,corBorda,cb);	
@@ -34,6 +34,11 @@ public class Pentagono  extends Figure{
 	
 	
 	
+	public void colorBorda(Color corBorda){
+			this.corBorda=corBorda;
+			
+			
+		}
 	
 	
 
