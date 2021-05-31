@@ -39,6 +39,8 @@ public abstract class Figure implements IVisible,Serializable {
 
     public abstract boolean contains(MouseEvent evt);
 	public abstract void colorFig(Color b);
+	public abstract void colorBorda(Color corBorda);
+
 			
 		
 
