@@ -1,0 +1,10 @@
+Manual Projeto
+
+-As setas movem as figuras
+
+As teclas + e - aumentam e diminuem as figuras (Só está fazendo isso para o retangulo, não consegui descobrir o motivo)
+As teclas 'a','b,'c,' mudam as cores de fundo
+As teclas 'w' e 'z' mudam as cores da borda
+As teclas e,r,t,p criam respectivamente elipse,retangulo, triangulo, poligono
+O Delete deleta a figura
+Os botões criam as figuras
