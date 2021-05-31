@@ -36,10 +36,12 @@ class PackFrame extends JFrame {
 		
 		
 		try{
+			
 			FileInputStream f = new FileInputStream("proj.bin");
 			ObjectInputStream o = new ObjectInputStream(f);
 			this.figs = (ArrayList<Figure>) o.readObject();
 			o.close();
+
 			}catch(Exception x){
 			System.out.println("ERRO!\n");
 			}
@@ -48,8 +50,8 @@ class PackFrame extends JFrame {
 //40,                        80         ,27,17,		
 
 		//D
-		    buttons.add(new Button(1, new Ellipse(15,70,27,17, Color.black, Color.black)));
-			buttons.add(new Button(2, new Rect(30,110,20,15, Color.black, Color.black)));
+		    buttons.add(new Button(1, new Ellipse(13,70,27,17, Color.black, Color.black)));
+			buttons.add(new Button(2, new Rect(35,105,20,15, Color.black, Color.black)));
 			buttons.add(new Button(3, new Triangulo(50, 160, 25, 27, Color.black, Color.black)));
 			buttons.add(new Button(4, new Pentagono(65, 190, 0,0, Color.black, Color.black)));
 
@@ -57,12 +59,17 @@ class PackFrame extends JFrame {
         this.addWindowListener (
             new WindowAdapter() {
                 public void windowClosing (WindowEvent e) {
+					
+
 					try{
 					FileOutputStream f = new FileOutputStream("proj.bin");
 					ObjectOutputStream o = new ObjectOutputStream(f);
+					figs.remove(focus);
+					o.writeObject(figs);
 					o.writeObject(figs);
 					o.flush();
 					o.close();
+
 				}catch(Exception x){
 					System.out.println("ERRO!\n");
 				}
@@ -70,6 +77,7 @@ class PackFrame extends JFrame {
 					
                     System.exit(0);
                 }
+				
             }
         );
 		   
@@ -78,7 +86,11 @@ class PackFrame extends JFrame {
             new MouseAdapter() {
                  public void mousePressed (MouseEvent evt) {
                     p = getMousePosition();
-					 if(focusB != null ){
+					
+				if(focusB != null ){
+
+
+					 
 							if(focusB.idx==1)
 								figs.add(new Ellipse(p.x,p.y,27,17,Color.black,Color.pink));      
 							else if(focusB.idx==2)
@@ -96,11 +108,14 @@ class PackFrame extends JFrame {
 							figs.add(new Pentagono(p.x,p.y,w,h,Color.black,Color.pink ));
 							}
 							
+						focusB.focused = false;
 						focusB = null;
+						focus=null;
                         repaint();
 						return;
-						}
-						
+				}
+					focusB = null;
+
 					
 					    for (Button but: buttons) {
                         but.focused = false;
@@ -125,6 +140,8 @@ class PackFrame extends JFrame {
 					
 					
                     if (focus != null) {
+						
+					// focus.focused=false;
                      focus.corBorda=a;
 					if(focus.corBorda != Color.red){
                             focus.corBorda = Color.red;
@@ -138,6 +155,7 @@ class PackFrame extends JFrame {
                  
                     
 					repaint();
+				
                 }
             }
             );
@@ -147,12 +165,15 @@ class PackFrame extends JFrame {
             this.addMouseMotionListener (
                 new MouseMotionAdapter() {
                     public void mouseDragged (MouseEvent evt) {
+						 if (focus != null) {
+                            if (p != null){
 					  Point mousePressedPos=  evt.getPoint();
                       focus.drag(evt.getX() - p.x, evt.getY() - p.y, mousePressedPos);
                       p = getMousePosition();
                       repaint();
-                        
+							}
                     }
+					}
                 }
             );
 
@@ -198,11 +219,23 @@ class PackFrame extends JFrame {
                     
 					 }
 					 
+				
 			     
 			/*------------------------------------------------------------------------------
 			                         TROCA DE CORES
 			  ------------------------------------------------------------------------------*/
-					else if(evt.getKeyChar() == 'a' && focus!=null ){
+			   else if(evt.getKeyChar() == 'w'){
+
+                            focus.colorBorda(Color.green);
+							
+			   }
+			  
+			  
+			   else if(evt.getKeyChar() == 'z'){
+
+                            focus.colorBorda(Color.blue);
+							
+			   }else if(evt.getKeyChar() == 'a' && focus!=null ){
 	                           
 							   focus.colorFig(Color.blue);
 								
@@ -214,6 +247,8 @@ class PackFrame extends JFrame {
 					}else if(evt.getKeyChar() == 'c' && focus!=null ){
 	                           
 							   focus.colorFig(Color.green);
+							   
+							   
 			    /*------------------------------------------------------------------------------
 			                         Mexe com a posição das figuras
 			     ------------------------------------------------------------------------------*/
@@ -274,16 +309,45 @@ class PackFrame extends JFrame {
 				}
 
 				else if (evt.getKeyChar() == '+'   ) { 
+				
+				
+					for(Figure fig: figs){
+						if(focus == fig){
 					focus.tamanho(1,1);
+					
+							
+						}
+					}
+					
 					
 				}
 					
 					   
 				else if (evt.getKeyChar() == '-'   ) {
 					
+					for(Figure fig: figs){
+						if(focus == fig){
+							
+
 							focus.tamanho(-1,-1);
+                            
+
+							//focus=null;
+
+                         //   figs.remove(focus);
+							
+
+								
+						}
+					}
+					
+					
+					
 					
 				}
+				
+				
+				
 				/*------------------------------------------------------------
 					                REMOVE A FIGURA
 				  ------------------------------------------------------------*/
@@ -311,6 +375,7 @@ class PackFrame extends JFrame {
         for (Figure fig: this.figs) {
             fig.paint(g, fig.focused);
         }
+		
 		
 		   for (Button but: this.buttons) {
             but.paint(g,but.focused);
