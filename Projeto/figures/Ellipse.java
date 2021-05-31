@@ -9,9 +9,9 @@ import java.awt.event.*;
  public class Ellipse  extends Figure {
     int x, y;
     int w, h;
-	Color a;
-	Color b;
-	Ellipse2D  e;
+	private Color a;
+	private Color b;
+	protected Ellipse2D  e;
 
     public Ellipse (int x, int y, int w, int h,Color corBorda, Color cb) {
 				 super(x, y,w,h,corBorda,cb);
@@ -31,6 +31,12 @@ import java.awt.event.*;
 		this.cb=cb;
 		
 	}
+	public void colorBorda(Color corBorda){
+			this.corBorda=corBorda;
+			
+			
+		}
+	
 	
 	
 	
