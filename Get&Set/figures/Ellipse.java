@@ -26,6 +26,24 @@ import java.awt.event.*;
 
     }
 	  
+	 
+	 
+	 
+	 public Color getA() {
+		return A;
+	}
+	public void setA(Color a) {
+		this.a = a;
+	}
+	public double getB() {
+		return b;
+	}
+	public void setA(Color B) {
+		this.b = b;
+	}
+	 
+	 
+	 
 
 	public void colorFig(Color cb){
 		this.cb=cb;
